@@ -63,7 +63,7 @@ public class GapController {
         return new ResponseEntity<>(excelFile, headers, HttpStatus.OK);
     }
 
-    @Operation(summary = "갭분석 상세정보", description = "갭분석 상세정보 갖고오기")
+    @Operation(summary = "갭분석 상세정보 갖고오기", description = "갭분석 상세정보 갖고오기")
     @PostMapping("/detail")
     public LawGapDetailResponseDto getGapDetail(@RequestBody LawGapDetailRequestDto body) {
         return gapService.getGapDetail(body);
