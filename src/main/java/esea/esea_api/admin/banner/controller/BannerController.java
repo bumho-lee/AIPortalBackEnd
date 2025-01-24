@@ -84,7 +84,7 @@ public class BannerController {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
                 String formattedDateTime = now.format(formatter);
 
-                String bucketName = "htc-ai-web";
+                String bucketName = "ddi-ai-web-bucket";
                 String s3UploadPath = "banner/"+formattedDateTime+"_"+file.getOriginalFilename();
                 String localFilePath = destinationFile.getAbsolutePath();
                 
@@ -175,7 +175,7 @@ public class BannerController {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
                         String formattedDateTime = now.format(formatter);
 
-                        String bucketName = "htc-ai-web";
+                        String bucketName = "ddi-ai-web-bucket";
                         String s3UploadPath = "banner/"+formattedDateTime+"_"+file.getOriginalFilename();
                         String localFilePath = tempFile.getAbsolutePath();
                         

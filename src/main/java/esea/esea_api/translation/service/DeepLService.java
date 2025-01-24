@@ -396,7 +396,6 @@ public class DeepLService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             String formattedDateTime = now.format(formatter);
             
-            // String bucketName = "htc-ai-web";
             String bucketName = DEEL_AWS_BUCKET;
             String s3UploadPath = "up/"+formattedDateTime+"_"+file.getOriginalFilename();
             String localFilePath = destinationFile.getAbsolutePath();

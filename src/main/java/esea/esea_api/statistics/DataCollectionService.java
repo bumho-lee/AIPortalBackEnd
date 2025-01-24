@@ -211,7 +211,7 @@ public class DataCollectionService {
             File destinationFile = new File(filePath);
             file.transferTo(destinationFile);
 
-            String bucketName = "htc-ai-datalake";
+            String bucketName = "ddi-ai-datalake";
             s3UploadPath = collection.getFolderPath() + "/" + file.getOriginalFilename();
             // s3UploadPath 맨 앞의 "/" 제거
             if (s3UploadPath.startsWith("/")) {

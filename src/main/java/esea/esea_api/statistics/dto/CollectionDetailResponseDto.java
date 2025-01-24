@@ -45,7 +45,7 @@ public class CollectionDetailResponseDto {
     private String method;
 
     @Schema(description = "S3 버킷")
-    private String baseUrl = "https://htc-ai-datalake.s3.ap-northeast-2.amazonaws.com";
+    private String baseUrl = "https://ddi-ai-datalake.s3.ap-northeast-2.amazonaws.com";
 
     @Schema(description = "사용 여부")
     private String useYn;

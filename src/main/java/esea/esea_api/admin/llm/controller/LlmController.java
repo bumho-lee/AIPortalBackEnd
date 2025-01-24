@@ -94,7 +94,7 @@ public class LlmController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             String formattedDateTime = now.format(formatter);
             
-            String bucketName = "htc-ai-web";
+            String bucketName = "ddi-ai-web-bucket";
             String s3UploadPath = "llm/"+formattedDateTime+"_"+file.getOriginalFilename();
             String localFilePath = destinationFile.getAbsolutePath();
             // 파일 업로드
@@ -155,7 +155,7 @@ public class LlmController {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
                 String formattedDateTime = now.format(formatter);
                 
-                String bucketName = "htc-ai-web";
+                String bucketName = "ddi-ai-web-bucket";
                 String s3UploadPath = "llm/"+formattedDateTime+"_"+file.getOriginalFilename();
                 String localFilePath = destinationFile.getAbsolutePath();
                 // 파일 업로드
