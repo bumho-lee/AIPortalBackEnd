@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import esea.esea_api.enums.CONVERSATION_SOURCE_TYPE;
+import esea.esea_api.util.SourcePath;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import esea.esea_api.entities.CollectionData;
 
@@ -12,6 +15,8 @@ import esea.esea_api.entities.CollectionData;
 @Setter
 @Schema(description = "대화 소스 응답 DTO")
 public class SourceResponseDto {
+    private final SourcePath sourcePath;
+
     @Schema(description = "소스 URL 또는 텍스트", example = "https://example.com/document")
     private String source;
 
@@ -27,7 +32,8 @@ public class SourceResponseDto {
     @Schema(description = "지식 아이디", example = "1")
     private int knowledgeId;
 
-    public SourceResponseDto(CollectionData collectionData, String sourceType) {
+    public SourceResponseDto(CollectionData collectionData, String sourceType, SourcePath sourcePath) {
+        this.sourcePath = sourcePath;
         this.collectionDataId = collectionData.getCollectionDataId();
 
         // 이름 설정
@@ -52,7 +58,7 @@ public class SourceResponseDto {
         String filePath = collectionData.getIndexFilePath();
         String normalizedPath = normalizeFilePath(filePath);
 
-        this.source = buildS3Url(normalizedPath);
+        this.source = sourcePath.buildS3Url(normalizedPath);
         this.type = CONVERSATION_SOURCE_TYPE.PDF;
     }
 
@@ -70,7 +76,7 @@ public class SourceResponseDto {
         if (filePath.contains("kgs-code") || filePath.contains("spec")) {
             // KGS 코드 및 스펙 데이터 처리
             String normalizedPath = normalizeFilePath(filePath);
-            this.source = buildS3Url(normalizedPath);
+            this.source = sourcePath.buildS3Url(normalizedPath);
             this.type = determineFileType(this.source);
         }
     }
@@ -78,11 +84,6 @@ public class SourceResponseDto {
     // 파일 경로 정규화
     private String normalizeFilePath(String filePath) {
         return !filePath.startsWith("/") ? "/" + filePath : filePath;
-    }
-
-    // S3 파일 경로 빌드
-    private String buildS3Url(String path) {
-        return ("https://htc-ai-datalake.s3.ap-northeast-2.amazonaws.com" + path);
     }
 
     // 파일 유형 결정

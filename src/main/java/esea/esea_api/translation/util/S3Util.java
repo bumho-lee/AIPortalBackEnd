@@ -1,6 +1,8 @@
 package esea.esea_api.translation.util;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
 import jakarta.annotation.PostConstruct;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -8,6 +10,7 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
+@Configuration
 public class S3Util {
     @Value("${aws.accessKey}")
     private String amazonAWSAccessKey;

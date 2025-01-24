@@ -2,13 +2,20 @@ package esea.esea_api.statistics.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.format.DateTimeFormatter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.ZoneId;
 import esea.esea_api.entities.CollectionData;
+import esea.esea_api.util.SourcePath;
 import lombok.Data;
 
 @Schema(description = "수집 Data 응답 DTO")
 @Data
 public class CollectionDataResponseDto {
+    @Autowired
+    private SourcePath sourcePath;
+
     @Schema(description = "수집 Data ID")
     private String collectionDataId;
 
@@ -40,7 +47,8 @@ public class CollectionDataResponseDto {
         this.filePath = collectionData.getFilePath() != null ? 
             (collectionData.getFilePath().startsWith("/") ? collectionData.getFilePath().substring(1) : collectionData.getFilePath())
             : null;
-        this.filePath = "https://htc-ai-datalake.s3.ap-northeast-2.amazonaws.com/" + this.filePath;
+        
+        this.filePath = sourcePath.buildS3Url(this.filePath);
 
         this.regDt = collectionData.getRegDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.ragYn = collectionData.getIndexUpdate() ? "Y" : "N";

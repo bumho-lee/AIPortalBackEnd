@@ -25,7 +25,8 @@ import esea.esea_api.repositories.ConversationReactionRepository;
 import esea.esea_api.repositories.ChatExampleRepository;
 import esea.esea_api.repositories.KnowledgeRepository;
 import esea.esea_api.repositories.CollectionRepository;
-import esea.esea_api.util.SourceProcessor;
+import esea.esea_api.util.SourcePath;
+
 import esea.esea_api.repositories.CollectionDataRepository;
 
 import esea.esea_api.dynamodb_repository.ChatHistoryRepository;
@@ -49,6 +50,9 @@ import java.util.regex.Matcher;
 @Log4j2
 @Service
 public class ChatService {
+    @Autowired
+    private SourcePath sourcePath;
+
     @Autowired
     private ConversationReactionRepository reactionRepository;
 
@@ -367,7 +371,7 @@ public class ChatService {
             }
 
             if(collectionData != null && collection != null) {
-                SourceResponseDto result = new SourceResponseDto(collectionData, collection.getSourceType());
+                SourceResponseDto result = new SourceResponseDto(collectionData, collection.getSourceType(), sourcePath);
 
                 // page 추가
                 if (result.getType() == CONVERSATION_SOURCE_TYPE.PDF && page != "없음") {

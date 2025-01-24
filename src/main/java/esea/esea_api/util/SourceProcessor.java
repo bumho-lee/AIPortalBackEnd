@@ -1,5 +1,6 @@
 package esea.esea_api.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,8 @@ import esea.esea_api.chat.dto.SourceResponseDto;
 import java.util.ArrayList;
 @Component
 public class SourceProcessor {
+    @Autowired
+    private SourcePath sourcePath;
 
     private final CollectionDataRepository collectionDataRepository;
 
@@ -47,7 +50,7 @@ public class SourceProcessor {
 
         List<SourceResponseDto> sourceResponseDtos = new ArrayList<>();
         collectionDatas.stream().forEach(collectionData -> {
-            SourceResponseDto sourceResponseDto = new SourceResponseDto(collectionData, sourceType);
+            SourceResponseDto sourceResponseDto = new SourceResponseDto(collectionData, sourceType, sourcePath);
 
             // 사규 번호 검색
             if(collectionData.getIndexFilePath().contains("i-portal")) {
@@ -77,7 +80,7 @@ public class SourceProcessor {
         CollectionData collectionData = collectionDataRepository.findByName(source);
         
         if (collectionData != null) {
-            SourceResponseDto sourceResponseDto = new SourceResponseDto(collectionData, sourceType);
+            SourceResponseDto sourceResponseDto = new SourceResponseDto(collectionData, sourceType, sourcePath);
             sourceResponseDtos.add(sourceResponseDto);
         }
 
