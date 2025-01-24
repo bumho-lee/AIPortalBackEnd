@@ -1,0 +1,30 @@
+<!-- src/main/resources/templates/emailTemplate.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Portal 알림</title>
+    <style>
+        .email-container {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 600px;
+            margin: 0 auto;
+        }
+        .email-link {
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <p>안녕하십니까?</p>
+        <p>AI Portal에서 자동으로 보내는 메일입니다.<br>
+        AI Portal 내 "<span th:text="${serviceName}"></span>"의 항목이 생성되었습니다.</p>
+        <p>기준일자: <span th:text="${baseDate}"></span><br>
+        생성항목 수: <span th:text="${count}"></span> 건</p>
+        <p><a href="https://ai.hanwha-total.net" class="email-link">AI Portal로 이동하기</a></p>
+    </div>
+</body>
+</html>

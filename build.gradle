@@ -1,0 +1,106 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'com.sun.xml.ws:jaxws-tools:4.0.1'
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'esea'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+	implementation 'org.jsoup:jsoup:1.16.1'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.3'
+	implementation 'com.corundumstudio.socketio:netty-socketio:2.0.11'
+	implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.529'
+	implementation 'io.github.boostchicken:spring-data-dynamodb:5.2.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1' // HTTP 클라이언트
+    implementation 'org.json:json:20210307' // JSON 파싱
+    implementation 'software.amazon.awssdk:s3:2.20.12' // S3
+    implementation 'com.google.code.gson:gson:2.8.9' // 최신 버전 사용
+    implementation 'org.postgresql:postgresql:42.6.0'  // Add PostgreSQL driver
+    implementation 'org.apache.poi:poi:5.2.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'com.sun.xml.ws:jaxws-rt:4.0.1'
+	implementation 'jakarta.xml.ws:jakarta.xml.ws-api:4.0.0'
+	implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.2'
+	implementation 'jakarta.activation:jakarta.activation-api:2.1.0'  // 최신 버전 확인
+	
+	implementation 'wsdl4j:wsdl4j:1.6.3'
+	
+    // 모든 XML 관련 라이브러리 버전 호환성 맞추기
+    implementation 'org.apache.axis:axis:1.4'        // 예시
+
+	// slo 관련 라이브러리
+	implementation fileTree(dir: 'src/jar', include: ['*.jar'])
+
+	// log4j2 Core
+	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+	// log4j2 API
+	implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+	// Log4j2 SLF4J Bridge (사용 선택)
+	implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0'
+
+	// 기존의 log4j-to-slf4j 제거
+	configurations {
+		all {
+			exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+			exclude group: 'ch.qos.logback', module: 'logback-classic'
+		}
+	}
+
+	// html 메일 관련 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootJar {
+    archiveFileName = 'backend.jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+test {
+    enabled = false  // 모든 테스트를 비활성화
+}
+

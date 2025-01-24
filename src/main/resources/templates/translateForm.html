@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파일 번역</title>
+</head>
+<body>
+    <h1>파일 번역</h1>
+    <form action="/uploadFile" method="post" enctype="multipart/form-data">
+        <label for="file">파일 선택:</label>
+        <input type="file" name="file" required><br><br>
+
+        <label for="lang">목표 언어 (예: DE, EN, FR):</label>
+        <input type="text" name="lang" required><br><br>
+
+        <button type="submit">업로드 및 번역</button>
+    </form>
+</body>
+</html>

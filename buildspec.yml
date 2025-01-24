@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21
+
+  pre_build:
+    commands:
+      - echo Build started on `date`
+      - echo "Checking environment variables (secrets hidden)..."
+      - echo "Database URL = ${POSTGRES_URL}"
+      - echo "DynamoDB Endpoint = ${AI_AWS_DYNAMODB_ENDPOINT}"
+
+  build:
+    commands:
+      - echo Build phase started...
+      - chmod +x ./gradlew
+      # Gradle 빌드 (테스트 제외)
+      - ./gradlew clean build -x test --info --stacktrace
+      # 빌드 디렉토리 내용 확인
+      - echo "Listing build directory contents..."
+      - ls -la
+      - echo "Listing build/libs directory contents..."
+      - ls -la build/libs/
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo "Listing build/libs directory contents..."
+      - ls -la build/libs/
+
+artifacts:
+  files:
+    - build/libs/backend.jar
+    - appspec.yml
+    - scripts/**/*
+  discard-paths: no
