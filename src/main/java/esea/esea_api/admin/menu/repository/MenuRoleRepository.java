@@ -26,6 +26,7 @@ public interface MenuRoleRepository extends JpaRepository<MenuRole, Integer> {
     void deleteByMenuId(@Param("menuId") String menuId);
     
     // roleIds 배열을 IN 조건으로 조회
+    // IN쿼리 예외 처리
     @Query(value = "SELECT * FROM \"MENU_ROLE\" "
     		+ "WHERE \"ROLE_ID\" IN :roleIds "
             + "UNION ALL "
